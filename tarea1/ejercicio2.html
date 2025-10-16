@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 2 - Mayor de Tres</title>
+    <style>
+        body {
+            font-family: Verdana;
+            background: #f0f0ff;
+            padding: 30px;
+        }
+
+        .box {
+            background: #fff;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px #aaa;
+        }
+
+        h2 {
+            color: #004;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+        }
+
+        button {
+            background: #06c;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .msg {
+            margin-top: 15px;
+            padding: 10px;
+            display: none;
+            border-left: 4px solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Mayor de Tres</h2>
+
+        <form id="form">
+            <div class="field">
+                <label for="n1">Número 1:</label>
+                <input type="number" id="n1" required step="any">
+            </div>
+
+            <div class="field">
+                <label for="n2">Número 2:</label>
+                <input type="number" id="n2" required step="any">
+            </div>
+
+            <div class="field">
+                <label for="n3">Número 3:</label>
+                <input type="number" id="n3" required step="any">
+            </div>
+
+            <button type="submit">Verificar</button>
+        </form>
+
+        <div id="msg" class="msg"></div>
+    </div>
+
+    <script>
+        // cuando se envía el formulario
+        document.getElementById('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var a = parseFloat(document.getElementById('n1').value);
+            var b = parseFloat(document.getElementById('n2').value);
+            var c = parseFloat(document.getElementById('n3').value);
+            var m = document.getElementById('msg');
+
+            // si algo falla
+            if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                m.innerHTML = "Introduce los tres números.";
+                m.style.background = "#fdd";
+                m.style.borderLeftColor = "#c00";
+                m.style.display = "block";
+                return;
+            }
+
+            // buscar el mayor
+            var mayor = a;
+            if (b > mayor) mayor = b;
+            if (c > mayor) mayor = c;
+
+            // mostrar resultado
+            m.innerHTML = "Has introducido: " + a + ", " + b + ", " + c + ".<br>El mayor es: <strong>" + mayor + "</strong>.";
+            m.style.background = "#dfd";
+            m.style.borderLeftColor = "#080";
+            m.style.display = "block";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 4 - Suma hasta 50</title>
+    <style>
+        body {
+            font-family: Verdana;
+            background: #fff8f0;
+            padding: 30px;
+        }
+
+        .box {
+            background: #fff;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px #aaa;
+        }
+
+        h2 {
+            color: #800;
+        }
+
+        .info {
+            background: #ffeeba;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+        }
+
+        button {
+            background: #d63384;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .msg {
+            margin-top: 15px;
+            padding: 10px;
+            display: none;
+            border-left: 4px solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Suma hasta 50</h2>
+
+        <div class="info">
+            Introduce números hasta que la suma total supere 50.
+        </div>
+
+        <form id="form">
+            <div class="field">
+                <label for="num">Número:</label>
+                <input type="number" id="num" required step="any">
+            </div>
+
+            <button type="submit">Agregar</button>
+            <button type="button" onclick="reset()">Reiniciar</button>
+        </form>
+
+        <div id="estado"></div>
+        <div id="msg" class="msg"></div>
+    </div>
+
+    <script>
+        var total = 0;
+        var count = 0;
+        var activo = true;
+
+        document.getElementById('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (!activo) {
+                alert("Ya has superado 50. Pulsa 'Reiniciar' para empezar de nuevo.");
+                return;
+            }
+
+            var val = parseFloat(document.getElementById('num').value);
+            total += val;
+            count++;
+
+            document.getElementById('estado').innerHTML =
+                "<strong>Estado:</strong><br>" +
+                "Números introducidos: " + count + "<br>" +
+                "Suma total: " + total;
+
+            if (total > 50) {
+                activo = false;
+                var msg = document.getElementById('msg');
+                msg.innerHTML = "¡Has superado 50!<br><strong>Total:</strong> " + total +
+                                "<br><strong>Veces:</strong> " + count;
+                msg.style.background = "#dfd";
+                msg.style.borderLeftColor = "#080";
+                msg.style.display = "block";
+            }
+
+            document.getElementById('num').value = '';
+            document.getElementById('num').focus();
+        });
+
+        function reset() {
+            total = 0;
+            count = 0;
+            activo = true;
+            document.getElementById('estado').innerHTML = '';
+            var msg = document.getElementById('msg');
+            msg.style.display = "none";
+            document.getElementById('num').value = '';
+            document.getElementById('num').focus();
+        }
+
+        reset();
+    </script>
+</body>
+</html>

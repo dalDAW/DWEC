@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1 - Edad</title>
+    <style>
+        body {
+            font-family: Verdana;
+            background: #eef;
+            padding: 30px;
+        }
+
+        .box {
+            background: #fff;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px #aaa;
+        }
+
+        h2 {
+            color: #005;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+        }
+
+        button {
+            background: #06c;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .msg {
+            margin-top: 15px;
+            padding: 10px;
+            display: none;
+            border-left: 4px solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Edad</h2>
+
+        <form id="form">
+            <div class="field">
+                <label for="nom">Nombre:</label>
+                <input type="text" id="nom" required>
+            </div>
+
+            <div class="field">
+                <label for="ed">Edad:</label>
+                <input type="number" id="ed" required min="1" max="120">
+            </div>
+
+            <button type="submit">Verificar</button>
+        </form>
+
+        <div id="msg" class="msg"></div>
+    </div>
+
+    <script>
+        // evento al enviar
+        document.getElementById('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var nom = document.getElementById('nom').value;
+            var ed = parseInt(document.getElementById('ed').value);
+            var msg = document.getElementById('msg');
+
+            // si falta algo
+            if (!nom || isNaN(ed)) {
+                msg.innerHTML = "Completa bien los datos.";
+                msg.style.background = "#fdd";
+                msg.style.borderLeftColor = "#c00";
+                msg.style.display = "block";
+                return;
+            }
+
+            // resultado
+            var tipo = ed >= 18 ? "mayor" : "menor";
+            msg.innerHTML = "Hola " + nom + ", tienes " + ed + " años y eres " + tipo + " de edad.";
+            msg.style.background = "#dfd";
+            msg.style.borderLeftColor = "#080";
+            msg.style.display = "block";
+        });
+    </script>
+</body>
+</html>
