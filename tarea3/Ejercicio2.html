@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 2 David Amate López- Compresor</title>
+    <style>
+        body {
+            font-family: Verdana;
+            background: #f0f8f0;
+            padding: 30px;
+        }
+
+        .box {
+            background: #fff;
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #2d6a4f;
+            text-align: center;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .botones {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            flex: 1;
+            background: #2d6a4f;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #1b4332;
+        }
+
+        .resultado {
+            background: #d8f3dc;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #2d6a4f;
+            display: none;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #f5c6cb;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Compresor de Cadenas</h2>
+
+        <div class="field">
+            <label for="entrada">Cadena de entrada:</label>
+            <input type="text" id="entrada" placeholder="Escribe aquí...">
+        </div>
+
+        <div class="botones">
+            <button onclick="comprimir()">Comprimir</button>
+            <button onclick="descomprimir()">Descomprimir</button>
+        </div>
+
+        <div id="resultado" class="resultado"></div>
+        <div id="error" class="error"></div>
+    </div>
+
+    <script>
+        // Función para comprimir una cadena
+        function comprimir() {
+            var cadena = document.getElementById('entrada').value;
+            var error = document.getElementById('error');
+            var resultado = document.getElementById('resultado');
+            
+            // Ocultamos mensajes previos
+            error.style.display = 'none';
+            resultado.style.display = 'none';
+            
+            // Validación: no debe contener números
+            // Usamos una expresión regular para buscar dígitos
+            if (/\d/.test(cadena)) {
+                error.innerHTML = '<strong>Error:</strong> La cadena no puede contener números.';
+                error.style.display = 'block';
+                return;
+            }
+            
+            if (cadena === '') {
+                error.innerHTML = '<strong>Error:</strong> Introduce una cadena.';
+                error.style.display = 'block';
+                return;
+            }
+            
+            // Sustituimos espacios por ?
+            cadena = cadena.replace(/ /g, '?');
+            
+            // Algoritmo de compresión
+            var comprimida = '';
+            var i = 0;
+            
+            while (i < cadena.length) {
+                var caracterActual = cadena.charAt(i);
+                var contador = 1;
+                
+                // Contamos cuántas veces se repite el mismo carácter
+                while (i + contador < cadena.length && cadena.charAt(i + contador) === caracterActual) {
+                    contador++;
+                }
+                
+                // Si se repite más de una vez, ponemos el número
+                if (contador > 1) {
+                    comprimida += contador + caracterActual;
+                } else {
+                    // Si no se repite, solo el carácter
+                    comprimida += caracterActual;
+                }
+                
+                // Avanzamos en la cadena
+                i += contador;
+            }
+            
+            // Mostramos resultado
+            resultado.innerHTML = '<strong>Resultado:</strong> ' + comprimida;
+            resultado.style.display = 'block';
+        }
+        
+        // Función para descomprimir una cadena
+        function descomprimir() {
+            var cadena = document.getElementById('entrada').value;
+            var error = document.getElementById('error');
+            var resultado = document.getElementById('resultado');
+            
+            // Ocultamos mensajes previos
+            error.style.display = 'none';
+            resultado.style.display = 'none';
+            
+            if (cadena === '') {
+                error.innerHTML = '<strong>Error:</strong> Introduce una cadena.';
+                error.style.display = 'block';
+                return;
+            }
+            
+            // Algoritmo de descompresión
+            var descomprimida = '';
+            var i = 0;
+            
+            while (i < cadena.length) {
+                var caracterActual = cadena.charAt(i);
+                
+                // Verificamos si es un número
+                if (!isNaN(caracterActual) && caracterActual !== ' ') {
+                    // Extraemos el número completo (puede ser de varios dígitos)
+                    var numero = '';
+                    while (i < cadena.length && !isNaN(cadena.charAt(i))) {
+                        numero += cadena.charAt(i);
+                        i++;
+                    }
+                    
+                    // El siguiente carácter es el que se repite
+                    var caracter = cadena.charAt(i);
+                    var repeticiones = parseInt(numero);
+                    
+                    // Repetimos el carácter
+                    for (var j = 0; j < repeticiones; j++) {
+                        descomprimida += caracter;
+                    }
+                    
+                    i++;
+                } else {
+                    // Si no es número, añadimos el carácter tal cual
+                    descomprimida += caracterActual;
+                    i++;
+                }
+            }
+            
+            // Restauramos los espacios (sustituimos ? por espacio)
+            descomprimida = descomprimida.replace(/\?/g, ' ');
+            
+            // Mostramos resultado
+            resultado.innerHTML = '<strong>Resultado:</strong> ' + descomprimida;
+            resultado.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

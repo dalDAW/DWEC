@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 4 David Amate López - Redirección</title>
+    <style>
+        body {
+            font-family: Verdana;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px;
+            text-align: center;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .box {
+            background: rgba(255, 255, 255, 0.95);
+            max-width: 600px;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            color: #333;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .cuenta-atras {
+            font-size: 80px;
+            font-weight: bold;
+            color: #764ba2;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .destino {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .destino a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .cancelar {
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .cancelar:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>¡Bienvenido!</h1>
+        <p>Esta página se redirigirá automáticamente en:</p>
+        
+        <div class="cuenta-atras" id="cuentaAtras">3</div>
+        
+        <div class="destino">
+            Serás redirigido a: <a href="https://cifpcarlos3.es/es" target="_blank">CIFP Carlos III</a>
+        </div>
+        
+        <button class="cancelar" onclick="cancelarRedireccion()">Cancelar Redirección</button>
+    </div>
+
+    <script>
+        // Variable que almacena el temporizador
+        var temporizador;
+        var segundos = 3;
+        
+        // Función que va actualiza la cuenta atrás
+        function actualizarCuentaAtras() {
+            segundos--;
+            document.getElementById('cuentaAtras').textContent = segundos;
+            
+            if (segundos <= 0) {
+                // Cuando llega a 0, redirige
+                realizarRedireccion();
+            }
+        }
+        
+        // Función que realiza la redirección
+        function realizarRedireccion() {
+                        window.location.href = 'https://cifpcarlos3.es/es';
+        }
+        
+        // Función que cancela la redirección
+        function cancelarRedireccion() {
+            // Cancela el setTimeout
+            clearTimeout(temporizador);
+            
+            // Cancelamos el interval si existe
+            if (typeof intervalo !== 'undefined') {
+                clearInterval(intervalo);
+            }
+            
+            // Cambia el mensaje
+            document.getElementById('cuentaAtras').textContent = 'CANCELADO';
+            document.getElementById('cuentaAtras').style.color = '#dc3545';
+            
+            alert('Redirección cancelada. Puedes permanecer en esta página.');
+        }
+        
+        // Cuando la página carga, inicia la cuenta atrás
+        window.addEventListener('load', function() {
+            // Actualiza la cuenta cada segundo
+            var intervalo = setInterval(actualizarCuentaAtras, 1000);
+            
+            // setTimeout  redirecciona después de 3 segundos
+            temporizador = setTimeout(realizarRedireccion, 3000);
+        });
+    </script>
+</body>
+</html>

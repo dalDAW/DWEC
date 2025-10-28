@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 3 David Amate López - Contador</title>
+    <style>
+        body {
+            font-family: Verdana;
+            background: #fff3e0;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .box {
+            background: #fff;
+            max-width: 500px;
+            margin: auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #e65100;
+            margin-bottom: 30px;
+        }
+
+        .contador {
+            font-size: 80px;
+            font-weight: bold;
+            color: #ff6f00;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        button {
+            background: #ff6f00;
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 10px;
+        }
+
+        button:hover {
+            background: #e65100;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .info {
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .alerta {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            border: 2px solid #ef5350;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Contador de Clicks</h2>
+        
+        <div class="contador" id="contador">0</div>
+        
+        <button id="btnClick">Click Aquí</button>
+        <button onclick="reiniciar()">Reiniciar Contador</button>
+        
+        <div class="info">
+            El contador se guarda automáticamente y persistirá cuando vuelvas a cargar la página.
+        </div>
+        
+        <div class="alerta" id="alerta">
+            <strong>¡Límite alcanzado!</strong><br>
+            Ya no se pueden realizar más clicks.
+        </div>
+    </div>
+
+    <script>
+        // Variable para el contador
+        var contador = 0;
+        var botonClick = document.getElementById('btnClick');
+        
+        // Al cargar la página, recuperamos el valor guardado en localStorage
+        window.addEventListener('load', function() {
+            // localStorage.getItem devuelve null si no existe la clave
+            var valorGuardado = localStorage.getItem('contadorClicks');
+            
+            if (valorGuardado !== null) {
+                // Convertimos el string a número
+                contador = parseInt(valorGuardado);
+                actualizarContador();
+                
+                // Verificamos si ya alcanzó el límite
+                if (contador >= Number.MAX_SAFE_INTEGER) {
+                    mostrarAlerta();
+                }
+            }
+        });
+        
+        // Evento click del botón
+        botonClick.addEventListener('click', function() {
+            // Verificamos si hemos alcanzado el máximo entero seguro
+            if (contador >= Number.MAX_SAFE_INTEGER) {
+                mostrarAlerta();
+                return; // No incrementamos más
+            }
+            
+            // Incrementamos el contador
+            contador++;
+            
+            // Guardamos en localStorage
+            localStorage.setItem('contadorClicks', contador);
+            
+            // Actualizamos la pantalla
+            actualizarContador();
+            
+            // Verificamos si alcanzamos el límite
+            if (contador >= Number.MAX_SAFE_INTEGER) {
+                mostrarAlerta();
+            }
+        });
+        
+        // Función para actualizar el número en pantalla
+        function actualizarContador() {
+            document.getElementById('contador').textContent = contador;
+        }
+        
+        // Función para mostrar la alerta de límite
+        function mostrarAlerta() {
+            document.getElementById('alerta').style.display = 'block';
+            botonClick.disabled = true;
+            alert('Ya no se pueden realizar más clicks');
+        }
+        
+        // Función para reiniciar el contador
+        function reiniciar() {
+            // Confirmamos con el usuario
+            if (confirm('¿Estás seguro de reiniciar el contador?')) {
+                contador = 0;
+                localStorage.setItem('contadorClicks', contador);
+                actualizarContador();
+                
+                // Ocultamos la alerta y habilitamos el botón
+                document.getElementById('alerta').style.display = 'none';
+                botonClick.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
