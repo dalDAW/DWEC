@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea 4 - DWEC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .info-box h3 {
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .info-box strong {
+            color: #0066cc;
+        }
+
+        #listado-cuentas {
+            margin-top: 30px;
+        }
+
+        #listado-cuentas h2 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        table {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tr:hover {
+            background: #f8f9ff;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:nth-child(even):hover {
+            background: #f0f0ff;
+        }
+
+        .console-hint {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin-top: 30px;
+        }
+
+        .console-hint::before {
+            content: '$ ';
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Tarea 4 - DWEC UT4 David Amate López</h1>
+            <p class="subtitle">Arrays, Funciones y Programación Orientada a Objetos</p>
+        </header>
+
+        <div class="content">
+            <div class="info-box">
+                <h3>📋 Instrucciones</h3>
+                <p>
+                    <strong>Abre la consola del navegador (F12)</strong> para ver los resultados de:
+                </p>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                    <li><strong>Ejercicio 1:</strong> Funciones con arrays (filtrado, búsqueda, ordenación)</li>
+                    <li><strong>Ejercicio 2:</strong> Mensajes de gestión de cuentas bancarias</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>✅ Funciones implementadas</h3>
+                <p style="margin-top: 10px;">
+                    <strong>Ejercicio 1:</strong><br>
+                    (1) Filtrar por tipo y precio • 
+                    (2) Capitalizar descripciones • 
+                    (3) Buscar por cadena • 
+                    (4) Calcular estadísticas • 
+                    (5) Ordenar por precio
+                </p>
+                <p style="margin-top: 10px;">
+                    <strong>Ejercicio 2:</strong><br>
+                    (6) Clase Banco • 
+                    (7) Crear cuenta • 
+                    (8) Actualizar cuenta • 
+                    (9) Eliminar cuenta • 
+                    (10) Listar cuentas
+                </p>
+            </div>
+
+            <!-- Aquí se renderizará la tabla de cuentas -->
+            <div id="listado-cuentas"></div>
+
+            <div class="console-hint">
+                Presiona F12 y ve a la pestaña "Console" para ver todos los resultados
+            </div>
+        </div>
+
+        <footer>
+            <p>Desarrollo Web en Entorno Cliente - 2º DAW</p>
+        </footer>
+    </div>
+
+    <!-- Script cargado al final del body -->
+    <script src="ejercicio.js"></script>
+</body>
+</html>
