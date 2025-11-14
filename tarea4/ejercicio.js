@@ -25,20 +25,20 @@ const articulos = [
 // EJERCICIO 1: FUNCIONES CON ARRAYS
 // ============================================
 
-// (1) Filtrar artículos por tipo y precio máximo
+// (1) Filtra los artículos por tipo y precio máximo
 const filtrarPorTipoYPrecio = (array, tipo, precioMax) => {
     // Usamos filter() con arrow function para crear un nuevo array
     return array.filter(articulo => articulo.tipo === tipo && articulo.precio <= precioMax);
 };
 
-// (2) Capitalizar descripciones (primera letra mayúscula, resto minúsculas)
+// (2) Capitalizar las descripciones (primera letra mayúscula, resto minúsculas)
 const capitalizarDescripciones = (array) => {
     // Usamos map() para transformar cada elemento
     return array.map(articulo => {
         const desc = articulo.descripcion;
         const capitalizada = desc.charAt(0).toUpperCase() + desc.slice(1).toLowerCase();
         
-        // Devolvemos un nuevo objeto con spread operator
+        // Devuelve un nuevo objeto con spread operator
         return {
             ...articulo,
             descripcion: capitalizada
@@ -46,7 +46,7 @@ const capitalizarDescripciones = (array) => {
     });
 };
 
-// (3) Buscar artículos que contengan una cadena en la descripción
+// (3) Buscamos los artículos que contengan una cadena en la descripción
 const buscarPorCadena = (array, cadena) => {
     const cadenaBusqueda = cadena.toLowerCase();
     
@@ -55,7 +55,7 @@ const buscarPorCadena = (array, cadena) => {
     );
 };
 
-// (4) Calcular cantidad y precio medio de artículos de un tipo
+// (4) Calcula la cantidad y precio medio de artículos de un tipo
 const calcularEstadisticasPorTipo = (array, tipo) => {
     const articulosTipo = array.filter(articulo => articulo.tipo === tipo);
     const cantidad = articulosTipo.length;
@@ -70,7 +70,7 @@ const calcularEstadisticasPorTipo = (array, tipo) => {
     return { cantidad, preciomedio };
 };
 
-// (5) Reorganizar array por precio (ascendente o descendente)
+// (5) Reorganiza el  array por precio (ascendente o descendente)
 const ordenarPorPrecio = (array, orden) => {
     // Creamos una copia con spread operator
     const arrayOrdenado = [...array];
@@ -95,7 +95,7 @@ class Banco {
         this.cuentas = {};
     }
     
-    // (7) Crear cuenta
+    // (7) Crear la cuenta
     crearCuenta(codigo, saldoInicial = 0) {
         if (codigo < 1 || codigo > 599999) {
             console.error("Error: El código debe estar entre 000001 y 599999");
@@ -111,7 +111,7 @@ class Banco {
         console.log(`Cuenta ${codigo} creada con saldo: ${saldoInicial}€`);
     }
     
-    // (8) Actualizar cuenta
+    // (8) Actualizar la cuenta
     actualizarCuenta(codigo, cantidad) {
         if (!this.cuentas.hasOwnProperty(codigo)) {
             console.error(`Error: La cuenta ${codigo} no existe`);
@@ -123,7 +123,7 @@ class Banco {
         console.log(`${operacion} de ${cantidad}€ en cuenta ${codigo}. Nuevo saldo: ${this.cuentas[codigo]}€`);
     }
     
-    // (9) Eliminar cuenta
+    // (9) Eliminar la cuenta
     eliminarCuenta(codigo) {
         if (!this.cuentas.hasOwnProperty(codigo)) {
             console.error(`Error: La cuenta ${codigo} no existe`);
@@ -139,7 +139,7 @@ class Banco {
         console.log(`Cuenta ${codigo} eliminada correctamente`);
     }
     
-    // (10) Listar cuentas en el documento (usando DOM nativo)
+    // (10) Lista las cuentas en el documento (usando DOM nativo)
     listarCuentas() {
         const contenedor = document.getElementById('listado-cuentas');
         
@@ -225,30 +225,30 @@ class Banco {
 
 console.log("========== EJERCICIO 1 ==========");
 
-// Prueba función (1)
+// Prueba la función (1)
 console.log("\n(1) Artículos de tipo 'Electrónica' con precio <= 100€:");
 console.log(filtrarPorTipoYPrecio(articulos, "Electrónica", 100));
 
-// Prueba función (2)
+// Prueba la función (2)
 console.log("\n(2) Descripciones capitalizadas:");
 const articulosCapitalizados = capitalizarDescripciones(articulos);
 console.log(articulosCapitalizados.slice(0, 5));
 
-// Prueba función (3)
+// Prueba la función (3)
 console.log("\n(3) Artículos que contienen 'USB':");
 console.log(buscarPorCadena(articulos, "USB"));
 
-// Prueba función (4)
+// Prueba la función (4)
 console.log("\n(4) Estadísticas de artículos tipo 'Electrónica':");
 console.log(calcularEstadisticasPorTipo(articulos, "Electrónica"));
 
-// Prueba función (5)
+// Prueba la función (5)
 console.log("\n(5) Artículos ordenados por precio descendente:");
 console.log(ordenarPorPrecio(articulos, "descendente").slice(0, 5));
 
 console.log("\n========== EJERCICIO 2 ==========");
 
-// Creamos un objeto banco
+// Crea  un objeto banco
 const miBanco = new Banco("Banco Carlos3");
 
 // (7) Creamos las 3 cuentas
